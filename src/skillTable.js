@@ -21,8 +21,9 @@ ss.std = (array) => {
 
 // add row number
 const emptyTh = document.createElement('th');
-emptyTh.style.display = 'block';
-emptyTh.style.width = '24px';
+const div = document.createElement('div');
+div.style.width = '28px';
+emptyTh.appendChild(div);
 
 const seqTd = document.getElementsByClassName('sequence')[0];
 const seqTdParent = seqTd.parentElement;

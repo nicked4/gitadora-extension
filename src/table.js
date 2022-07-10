@@ -34,6 +34,9 @@ Array.from(document.getElementsByClassName('music_cell'))
     const numTd = document.createElement('td');
     numTd.innerText = i++;
     numTd.style.textAlign = 'center';
+    if (i % 2 === 1) {
+      numTd.className = 'zebra_black';
+    }
     const cParent = c.parentElement;
     cParent.insertBefore(numTd, c);
   });

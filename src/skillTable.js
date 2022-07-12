@@ -138,4 +138,4 @@ statTable.style.marginBottom = '12px';
 
 const skillSelect = document.getElementsByClassName('skill_select')[0];
 const skillSelectParent = skillSelect.parentElement;
-skillSelectParent.insertBefore(statTable, skillSelect.nextSibling);
+skillSelectParent.insertBefore(statTable, skillSelect.nextElementSibling);

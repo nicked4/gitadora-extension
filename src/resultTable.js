@@ -1,5 +1,4 @@
 // TODO: import with webpack
-// TODO: scrollable https://www.google.com/search?q=css+table+%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB&oq=css+table+%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB&aqs=chrome..69i57j0i512l6.3818j1j7&sourceid=chrome&ie=UTF-8
 // TODO: DESIGN insertAfter(drumImage, guitarImage);
 function insertBefore(insertElement, insertedElement) {
   const parent = insertedElement.parentElement;
@@ -48,16 +47,25 @@ const drumBoard = document.getElementsByClassName('folder_board_tb')[1];
 const guitarImage = guitarBoard.firstChild.firstChild;
 const drumImage = drumBoard.firstChild.firstChild;
 
-drumBoard.style.display = 'none';
-
 const guitarTable = generateTable(guitarDiffs);
 const drumTable = generateTable(drumDiffs);
-drumTable.style.display = 'none';
+
+if (localStorage.getItem('lastGameType') === 'dm') {
+  guitarBoard.style.display = 'none';
+  guitarTable.style.display = 'none';
+} else {
+  drumBoard.style.display = 'none';
+  drumTable.style.display = 'none';
+}
 
 function generateTable(diffs) {
+  const div = document.createElement('div');
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
+
+  div.className = 'resultTable';
+  table.className = 'common_tb';
 
   // head
   const headTr = document.createElement('tr');
@@ -81,8 +89,6 @@ function generateTable(diffs) {
     ['ss', 's', 'a', 'b', 'c', 'd'].forEach((r) => {
       const bodyTd = document.createElement('td');
       bodyTd.innerText = d[r];
-      bodyTd.style.textAlign = 'right';
-      bodyTd.style.width = '80px';
       if (i % 2 == 1) {
         bodyTd.className = 'zebra_black';
       }
@@ -93,12 +99,10 @@ function generateTable(diffs) {
 
   table.appendChild(thead);
   table.appendChild(tbody);
-  table.className = 'common_tb';
-  table.style.width = '630px';
-  table.style.marginLeft = '54px';
-  table.style.marginBottom = '24px';
 
-  return table;
+  div.appendChild(table);
+
+  return div;
 }
 
 // event handle
@@ -106,13 +110,15 @@ guitarImage.onclick = () => {
   guitarBoard.style.display = 'none';
   guitarTable.style.display = 'none';
   drumBoard.style.display = 'block';
-  drumTable.style.display = 'table';
+  drumTable.style.display = 'block';
+  localStorage.setItem('lastGameType', 'dm');
 };
 drumImage.onclick = () => {
   guitarBoard.style.display = 'block';
-  guitarTable.style.display = 'table';
+  guitarTable.style.display = 'block';
   drumBoard.style.display = 'none';
   drumTable.style.display = 'none';
+  localStorage.setItem('lastGameType', 'gf');
 };
 
 // insert tables

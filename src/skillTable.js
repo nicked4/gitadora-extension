@@ -1,3 +1,5 @@
+import { insertBefore } from "./lib";
+
 // stat utils
 const ss = {
   sum: (array) => array.reduce((sum, value) => sum + value),
@@ -26,8 +28,7 @@ div.style.width = '28px';
 emptyTh.appendChild(div);
 
 const seqTd = document.getElementsByClassName('sequence')[0];
-const seqTdParent = seqTd.parentElement;
-seqTdParent.insertBefore(emptyTh, seqTd);
+insertBefore(emptyTh, seqTd);
 
 let i = 1;
 Array.from(document.getElementsByClassName('music_cell'))
@@ -38,8 +39,7 @@ Array.from(document.getElementsByClassName('music_cell'))
     if (i % 2 === 1) {
       numTd.className = 'zebra_black';
     }
-    const cParent = c.parentElement;
-    cParent.insertBefore(numTd, c);
+    insertBefore(numTd, c);
   });
 
 // statistics
@@ -137,5 +137,4 @@ statTable.className = 'skill_table_tb common_tb';
 statTable.style.marginBottom = '12px';
 
 const skillSelect = document.getElementsByClassName('skill_select')[0];
-const skillSelectParent = skillSelect.parentElement;
-skillSelectParent.insertBefore(statTable, skillSelect.nextElementSibling);
+insertBefore(statTable, skillSelect.nextElementSibling);

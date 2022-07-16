@@ -1,19 +1,5 @@
-// TODO: import with webpack
 // TODO: DESIGN insertAfter(drumImage, guitarImage);
-function insertBefore(insertElement, insertedElement) {
-  const parent = insertedElement.parentElement;
-  parent.insertBefore(insertElement, insertedElement);
-}
-
-function insertAfter(insertElement, insertedElement) {
-  const parent = insertedElement.parentElement;
-  if (insertedElement.nextElementSibling === null) {
-    parent.appendChild(insertElement);
-    return;
-  }
-
-  parent.insertBefore(insertElement, insertedElement.nextElementSibling);
-}
+import { insertAfter } from "./lib";
 
 // generate diffs
 const guitarDiffTitles = document.getElementsByClassName('board_inner')[0].getElementsByClassName('diff_title');

@@ -6,16 +6,16 @@
   "content_scripts": [
     {
       "matches": ["https://p.eagate.573.jp/game/gfdm/gitadora_highvoltage/p/playdata*"],
-      "js": ["src/controller.js"]
+      "js": ["dist/controller.js"]
     },
     {
       "matches": ["https://p.eagate.573.jp/game/gfdm/gitadora_highvoltage/p/playdata/skill.html*"],
-      "js": ["src/skillTable.js"]
+      "js": ["dist/skillTable.js"]
     },
     {
       "matches": ["https://p.eagate.573.jp/game/gfdm/gitadora_highvoltage/p/playdata/profile.html*"],
       "css": ["src/style/resultTable.css"],
-      "js": ["src/resultTable.js"]
+      "js": ["dist/resultTable.js"]
     }
   ]
 }

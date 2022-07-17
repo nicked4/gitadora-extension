@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "description": "Makes GITADORA homepage useful",
+  "background": {
+    "scripts": ["dist/hot-reload.js"]
+  },
   "content_scripts": [
     {
       "matches": ["https://p.eagate.573.jp/game/gfdm/gitadora_highvoltage/p/playdata*"],

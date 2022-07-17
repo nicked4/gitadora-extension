@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nicked4/gitadora-extension#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
+    "crx-hotreload": "^1.0.6",
     "css-loader": "^6.7.1",
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",

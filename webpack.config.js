@@ -7,6 +7,7 @@ module.exports = {
     controller: './src/controller.js',
     resultTable: './src/resultTable.js',
     skillTable: './src/skillTable.js',
+    'hot-reload': './hot-reload.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

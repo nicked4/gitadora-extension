@@ -42,14 +42,6 @@ const drumImage = drumBoard.firstChild.firstChild;
 const guitarTable = generateTable(guitarDiffs);
 const drumTable = generateTable(drumDiffs);
 
-if (localStorage.getItem('lastGameType') === 'dm') {
-  guitarBoard.style.display = 'none';
-  guitarTable.style.display = 'none';
-} else {
-  drumBoard.style.display = 'none';
-  drumTable.style.display = 'none';
-}
-
 function generateTable(diffs) {
   const div = document.createElement('div');
   const table = document.createElement('table');
@@ -135,6 +127,7 @@ const page = localStorage.getItem('lastPage');
 guitarImage.onclick = () => {
   const url = new URL(location);
   url.searchParams.set('gtype', 'dm');
+  localStorage.setItem('guitarTableScroll', guitarTable.scrollTop);
 
   guitarBoard.style.display = 'none';
   guitarTable.style.display = 'none';
@@ -145,9 +138,11 @@ guitarImage.onclick = () => {
   history.replaceState({}, '', url);
   localStorage.setItem('lastGameType', 'dm');
 };
+
 drumImage.onclick = () => {
   const url = new URL(location);
   url.searchParams.set('gtype', 'gf');
+  localStorage.setItem('drumTableScroll', drumTable.scrollTop);
 
   guitarBoard.style.display = 'block';
   guitarTable.style.display = 'block';
@@ -159,6 +154,26 @@ drumImage.onclick = () => {
   localStorage.setItem('lastGameType', 'gf');
 };
 
+// store table scroll value
+window.onbeforeunload = () => {
+  const currentTableScroll = 'lastGameType' === 'gf' ? guitarTable.scrollTop : drumTable.scrollTop;
+  localStorage.setItem('lastGameType' === 'gf' ? 'guitarTableScroll' : 'drumTableScroll', currentTableScroll);
+}
+
 // insert tables
+const guitarTableScroll = parseInt(localStorage.getItem('guitarTableScroll') ?? 0);
+const drumTableScroll = parseInt(localStorage.getItem('drumTableScroll') ?? 0);
+
 insertAfter(guitarTable, guitarBoard);
 insertAfter(drumTable, drumBoard);
+guitarTable.scroll(0, guitarTableScroll);
+drumTable.scroll(0, drumTableScroll);
+
+// Element({display: none})'s scroll value is 0
+if (localStorage.getItem('lastGameType') === 'dm') {
+  guitarBoard.style.display = 'none';
+  guitarTable.style.display = 'none';
+} else {
+  drumBoard.style.display = 'none';
+  drumTable.style.display = 'none';
+}

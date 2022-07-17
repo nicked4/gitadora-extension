@@ -1,5 +1,6 @@
 // TODO: DESIGN insertAfter(drumImage, guitarImage);
 import { insertAfter } from "./lib";
+import './style/resultTable.scss';
 
 // generate diffs
 const guitarDiffTitles = document.getElementsByClassName('board_inner')[0].getElementsByClassName('diff_title');

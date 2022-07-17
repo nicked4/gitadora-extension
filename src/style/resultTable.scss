@@ -1,0 +1,29 @@
+/* TODO: install scss */
+div.resultTable {
+  overflow-y: scroll;
+  width: 630px;
+  height: 320px;
+  margin-left: 54px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #535353;
+
+  table {
+    border: none;
+    border-collapse: separate;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+  }
+
+  tbody td:nth-child(1n+2) {
+    width: 80px;
+    text-align: right;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+    border-collapse: separate;
+  }
+}

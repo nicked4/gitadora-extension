@@ -94,15 +94,20 @@ const playerBoard = document
   .getElementsByClassName('play_all')[0]
   .getElementsByTagName('img')[0];
 const anotherBoard = playerBoard.cloneNode();
-anotherBoard.style.display = 'none';
 
-if (anotherBoard.src.match(/gtype=gf/)) {
-  anotherBoard.src = anotherBoard.src.replace(/gtype=gf/, 'gtype=dm');
+if (playerBoard.src.match(/gtype=gf/)) {
+  anotherBoard.src = playerBoard.src.replace(/gtype=gf/, 'gtype=dm');
   insertAfter(anotherBoard, playerBoard);
-} else {
-  anotherBoard.src = anotherBoard.src.replace(/gtype=dm/, 'gtype=gf');
+} else if(playerBoard.src.match(/gtype=dm/)) {
+  anotherBoard.src = playerBoard.src.replace(/gtype=dm/, 'gtype=gf');
   insertBefore(anotherBoard, playerBoard);
+} else {
+  anotherBoard.src = playerBoard.src.replace(/gtype=/, 'gtype=dm');
+  insertAfter(anotherBoard, playerBoard);
 }
+
+const gtype = localStorage.getItem('lastGameType');
+switchPlayerBoard(gtype);
 
 function switchPlayerBoard(gtype) {
   // head
@@ -170,7 +175,7 @@ guitarTable.scroll(0, guitarTableScroll);
 drumTable.scroll(0, drumTableScroll);
 
 // Element({display: none})'s scroll value is 0
-if (localStorage.getItem('lastGameType') === 'dm') {
+if (gtype === 'dm') {
   guitarBoard.style.display = 'none';
   guitarTable.style.display = 'none';
 } else {

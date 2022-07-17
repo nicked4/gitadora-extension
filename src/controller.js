@@ -36,3 +36,5 @@ function updatePlaydataRouting(gtype, stype, page) {
   skill.firstElementChild.setAttribute('href', `${baseUrl}/skill.html?gtype=${gtype}&stype=${stype}`);
   stageResult.firstElementChild.setAttribute('href', `${baseUrl}/stage_result.html?gtype=${gtype}&page=${page}`);
 }
+
+export { updatePlaydataRouting };

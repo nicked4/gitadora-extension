@@ -1,10 +1,15 @@
 // TODO: DESIGN insertAfter(drumImage, guitarImage);
-import { insertAfter } from "./lib";
+import { updatePlaydataRouting } from "./controller";
+import { insertAfter, insertBefore } from "./lib";
 import './style/resultTable.scss';
 
 // generate diffs
-const guitarDiffTitles = document.getElementsByClassName('board_inner')[0].getElementsByClassName('diff_title');
-const drumDiffTitles = document.getElementsByClassName('board_inner')[1].getElementsByClassName('diff_title');
+const guitarDiffTitles = document
+  .getElementsByClassName('board_inner')[0]
+  .getElementsByClassName('diff_title');
+const drumDiffTitles = document
+  .getElementsByClassName('board_inner')[1]
+  .getElementsByClassName('diff_title');
 
 const guitarDiffs = generateDiffs(guitarDiffTitles);
 const drumDiffs = generateDiffs(drumDiffTitles);
@@ -92,19 +97,65 @@ function generateTable(diffs) {
   return div;
 }
 
+// swtich player board
+const playerBoard = document
+  .getElementsByClassName('play_all')[0]
+  .getElementsByTagName('img')[0];
+const anotherBoard = playerBoard.cloneNode();
+anotherBoard.style.display = 'none';
+
+if (anotherBoard.src.match(/gtype=gf/)) {
+  anotherBoard.src = anotherBoard.src.replace(/gtype=gf/, 'gtype=dm');
+  insertAfter(anotherBoard, playerBoard);
+} else {
+  anotherBoard.src = anotherBoard.src.replace(/gtype=dm/, 'gtype=gf');
+  insertBefore(anotherBoard, playerBoard);
+}
+
+function switchPlayerBoard(gtype) {
+  // head
+  const boardUl = document.getElementById('board_change');
+  const [gfBoardHead, dmBoardHead] = boardUl.getElementsByTagName('div');
+
+  gfBoardHead.className = `change_gf_${gtype === 'gf'}`;
+  dmBoardHead.className = `change_dm_${gtype === 'dm'}`;
+
+  // board
+  const [gfBoard, dmBoard] = document
+    .getElementsByClassName('play_all')[0]
+    .getElementsByTagName('img');
+  gfBoard.style.display = gtype === 'gf' ? '' : 'none';
+  dmBoard.style.display = gtype === 'dm' ? '' : 'none';
+}
+
 // event handle
+const stype = localStorage.getItem('lastSkillType');
+const page = localStorage.getItem('lastPage');
+
 guitarImage.onclick = () => {
+  const url = new URL(location);
+  url.searchParams.set('gtype', 'dm');
+
   guitarBoard.style.display = 'none';
   guitarTable.style.display = 'none';
   drumBoard.style.display = 'block';
   drumTable.style.display = 'block';
+  updatePlaydataRouting('dm', stype, page);
+  switchPlayerBoard('dm');
+  history.replaceState({}, '', url);
   localStorage.setItem('lastGameType', 'dm');
 };
 drumImage.onclick = () => {
+  const url = new URL(location);
+  url.searchParams.set('gtype', 'gf');
+
   guitarBoard.style.display = 'block';
   guitarTable.style.display = 'block';
   drumBoard.style.display = 'none';
   drumTable.style.display = 'none';
+  updatePlaydataRouting('gf', stype, page);
+  switchPlayerBoard('gf');
+  history.replaceState({}, '', url);
   localStorage.setItem('lastGameType', 'gf');
 };
 

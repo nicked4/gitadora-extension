@@ -25,4 +25,17 @@ div.resultTable {
     border-bottom: none;
     border-collapse: separate;
   }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #d4d4d4;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: #949494;
+      border-radius: 100px;
+  }
 }

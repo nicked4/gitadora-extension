@@ -4,7 +4,8 @@
   "manifest_version": 2,
   "description": "Makes GITADORA homepage useful",
   "background": {
-    "scripts": ["dist/hot-reload.js"]
+    "scripts": ["dist/hot-reload.js"],
+    "persistent": false
   },
   "content_scripts": [
     {

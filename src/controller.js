@@ -28,7 +28,9 @@ function updatePlaydataRouting(gtype, stype, page) {
   const skill = document.getElementById('skill');
   const stageResult = document.getElementById('stage_result');
 
-  const baseUrl = '/game/gfdm/gitadora_highvoltage/p/playdata';
+  const paths = document.location.pathname.split('/').filter((s) => s);
+  const version = paths[2];
+  const baseUrl = `/game/gfdm/${version}/p/playdata`;
   profile.firstElementChild.setAttribute('href', `${baseUrl}/profile.html?gtype=${gtype}`);
   battle.firstElementChild.setAttribute('href', `${baseUrl}/battledata.html?gtype=${gtype}`);
   rivallist.firstElementChild.setAttribute('href', `${baseUrl}/rival.html?gtype=${gtype}`);

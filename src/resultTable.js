@@ -124,11 +124,19 @@ function switchPlayerBoard(gtype) {
   dmBoard.style.display = gtype === 'dm' ? '' : 'none';
 }
 
+// insert another gyype image
+const insertedDrumImage = guitarImage.cloneNode();
+const insertedGuitarImage = drumImage.cloneNode();
+insertedDrumImage.src = insertedDrumImage.src.replace(/title_gf/, 'title_dm');
+insertedGuitarImage.src = insertedGuitarImage.src.replace(/title_dm/, 'title_gf');
+insertAfter(insertedDrumImage, guitarImage);
+insertBefore(insertedGuitarImage, drumImage);
+
 // event handle
 const stype = localStorage.getItem('lastSkillType');
 const page = localStorage.getItem('lastPage');
 
-guitarImage.onclick = () => {
+const switchToDrum = () => {
   const url = new URL(location);
   url.searchParams.set('gtype', 'dm');
   localStorage.setItem('guitarTableScroll', guitarTable.scrollTop);
@@ -143,7 +151,7 @@ guitarImage.onclick = () => {
   localStorage.setItem('lastGameType', 'dm');
 };
 
-drumImage.onclick = () => {
+const switchToGuitar = () => {
   const url = new URL(location);
   url.searchParams.set('gtype', 'gf');
   localStorage.setItem('drumTableScroll', drumTable.scrollTop);
@@ -157,6 +165,11 @@ drumImage.onclick = () => {
   history.replaceState({}, '', url);
   localStorage.setItem('lastGameType', 'gf');
 };
+
+guitarImage.onclick = switchToDrum;
+insertedDrumImage.onclick = switchToDrum;
+drumImage.onclick = switchToGuitar;
+insertedGuitarImage.onclick = switchToGuitar;
 
 // store table scroll value
 window.onbeforeunload = () => {

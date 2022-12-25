@@ -1,4 +1,3 @@
-// TODO: DESIGN insertAfter(drumImage, guitarImage);
 import { updatePlaydataRouting } from "./controller";
 import { insertAfter, insertBefore } from "./lib";
 import './style/resultTable.scss';

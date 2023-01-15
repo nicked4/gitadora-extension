@@ -105,23 +105,24 @@ if (playerBoard.src.match(/gtype=gf/)) {
   insertAfter(anotherBoard, playerBoard);
 }
 
-const gtype = localStorage.getItem('lastGameType');
+let gtype = localStorage.getItem('lastGameType');
 switchPlayerBoard(gtype);
 
-function switchPlayerBoard(gtype) {
+function switchPlayerBoard(_gtype) {
   // head
   const boardUl = document.getElementById('board_change');
   const [gfBoardHead, dmBoardHead] = boardUl.getElementsByTagName('div');
 
-  gfBoardHead.className = `change_gf_${gtype === 'gf'}`;
-  dmBoardHead.className = `change_dm_${gtype === 'dm'}`;
+  gfBoardHead.className = `change_gf_${_gtype === 'gf'}`;
+  dmBoardHead.className = `change_dm_${_gtype === 'dm'}`;
 
   // board
   const [gfBoard, dmBoard] = document
     .getElementsByClassName('play_all')[0]
     .getElementsByTagName('img');
-  gfBoard.style.display = gtype === 'gf' ? '' : 'none';
-  dmBoard.style.display = gtype === 'dm' ? '' : 'none';
+  gfBoard.style.display = _gtype === 'gf' ? '' : 'none';
+  dmBoard.style.display = _gtype === 'dm' ? '' : 'none';
+  gtype = _gtype;
 }
 
 // insert another gyype image
@@ -173,8 +174,8 @@ insertedGuitarImage.onclick = switchToGuitar;
 
 // store table scroll value
 window.onbeforeunload = () => {
-  const currentTableScroll = 'lastGameType' === 'gf' ? guitarTable.scrollTop : drumTable.scrollTop;
-  localStorage.setItem('lastGameType' === 'gf' ? 'guitarTableScroll' : 'drumTableScroll', currentTableScroll);
+  const currentTableScroll = gtype === 'gf' ? guitarTable.scrollTop : drumTable.scrollTop;
+  localStorage.setItem(gtype === 'gf' ? 'guitarTableScroll' : 'drumTableScroll', currentTableScroll);
 }
 
 // insert tables

@@ -174,6 +174,10 @@ insertedGuitarImage.onclick = switchToGuitar;
 
 // store table scroll value
 window.onbeforeunload = () => {
+  if (document.getElementsByClassName('resultTable').length === 0) {
+    return;
+  }
+
   const currentTableScroll = gtype === 'gf' ? guitarTable.scrollTop : drumTable.scrollTop;
   localStorage.setItem(gtype === 'gf' ? 'guitarTableScroll' : 'drumTableScroll', currentTableScroll);
 }
